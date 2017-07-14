@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"></meta>
+  <title>I Forgot to Security My Web Tier</title>
+  
+  <script
+            src="https://code.jquery.com/jquery-3.2.1.js"
+            integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+            crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified CSS & JS -->
+    <link rel="stylesheet" media="screen" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <style>
+        .row{
+            padding-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>Burgers of the Day</h1>
+    <p>...but I forgot to secure my web tier!!!</p>
+  </div>
+</div>
+
+<div class="container">
+    <div class="alert alert-warning alert-danger" role="alert" th:if="${error}">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Error!</strong><span th:text="${' ' + error}"></span>
+    </div>
+
+    <div class="alert alert-warning alert-info" role="alert" th:if="${info}">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Info!</strong><span th:text="${' ' + info}"></span>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <form th:action="@{/add}" method="post" role="form">
+                <legend>Any one adds burgers</legend>
+
+                <div class="form-group">
+                    <label for="burgerName">Burger Name</label>
+                    <input type="text" class="form-control" name="burgerName" id="burgerName"></input>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <form th:action="@{/delete}" method="post" role="form">
+        <legend>...but only Bob gets to delete burgers!</legend>
+
+        <table class="table table-striped table-hover">
+          <thead>
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Delete</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="burger : ${burgers}">
+            <td th:text="${burger.id}"></td>
+            <td th:text="${burger.name}"></td>
+            <td>
+              <input type="checkbox" name="ids" th:value="${burger.id}"></input>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </div>
+
+
+
+</div>
+</body>
+</html>
